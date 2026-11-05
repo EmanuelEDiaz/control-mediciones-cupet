@@ -9,14 +9,14 @@ import { Acciones, Cabecera, Campo, Fila, Segmentos, Tarjeta } from './ui';
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const fmt = (n: number, u = '') =>
   new Intl.NumberFormat('es-ES', { maximumFractionDigits: 3 }).format(n) + (u ? ` ${u}` : '');
-const VERSION = '1.00';
+const VERSION = '1.01';
 const DURACION_SPLASH = 15000;
 
 export function Logo({ ancho = 160 }: { ancho?: number }) {
   return (
     <div className="inline-grid place-items-center rounded-3xl bg-white p-4 shadow-lg">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`${base}/logo-cupet.svg`} alt="Logotipo de Cupet" width={ancho} height={ancho * 0.71} />
+      <img src={`${base}/logo-cupet-santiago.png`} alt="Logotipo de Cupet Comercialización Santiago de Cuba" width={ancho} height={ancho} />
     </div>
   );
 }

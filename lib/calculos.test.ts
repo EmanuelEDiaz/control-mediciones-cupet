@@ -25,12 +25,20 @@ describe('faltantesSobrantes', () => {
     expect(r.diferenciaMedicion).toBe(0);
     expect(r.errorCantidadFacturada).toBe(300);
     expect(r.cantidadReclamar).toBe(-300);
-    expect(r.estado).toBe('sobrante');
+    expect(r.estado).toBe('faltante');
   });
-  it('Vara: error 0,01 y positivo = faltante (convención del dueño)', () => {
+  it('Vara: error 0,01 y positivo = sobrante', () => {
     const r = faltantesSobrantes('vara', 0, 10500, 10000);
     expect(r.cantidadReclamar).toBe(400);
-    expect(r.mensaje).toBe('Existe Faltante');
+    expect(r.mensaje).toBe('Existe Sobrante');
+  });
+  it('caso del cliente: 2500→2880, facturado 300, Veeder-Root', () => {
+    const r = faltantesSobrantes('veeder', 2500, 2880, 300);
+    expect(r.realDescargado).toBe(380);
+    expect(r.diferenciaMedicion).toBe(80);
+    expect(r.errorCantidadFacturada).toBe(9);
+    expect(r.cantidadReclamar).toBe(71);
+    expect(r.mensaje).toBe('Existe Sobrante');
   });
   it('exactamente cero', () => {
     const r = faltantesSobrantes('vara', 0, 10100, 10000);

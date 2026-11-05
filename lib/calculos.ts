@@ -29,7 +29,11 @@ export const leerNumero = (s: string): number => {
   return t === '' || !/^-?\d*\.?\d+$|^-?\d+\.$/.test(t) ? NaN : Number(t);
 };
 
-/** Fórmulas tal como las dictó el dueño (ver historial de la conversación). */
+/**
+ * Fórmulas tal como las dictó el dueño (ver historial de la conversación).
+ * Signo corregido por el cliente (audio 2026-11-02): positivo = Sobrante
+ * (se descargó más de lo facturado), negativo = Faltante.
+ */
 export function faltantesSobrantes(
   instrumento: Instrumento,
   medidaInicial: number,
@@ -43,13 +47,13 @@ export function faltantesSobrantes(
   const cantidadReclamar = diferenciaMedicion - errorCantidadFacturada;
 
   const r = redondear(cantidadReclamar);
-  const estado: EstadoReclamo = r === 0 ? 'ninguno' : r > 0 ? 'faltante' : 'sobrante';
+  const estado: EstadoReclamo = r === 0 ? 'ninguno' : r > 0 ? 'sobrante' : 'faltante';
   const mensaje =
     estado === 'ninguno'
       ? 'No existe Faltante o Sobrante'
-      : estado === 'faltante'
-        ? 'Existe Faltante'
-        : 'Existe Sobrante';
+      : estado === 'sobrante'
+        ? 'Existe Sobrante'
+        : 'Existe Faltante';
 
   return {
     realDescargado,
